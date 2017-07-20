@@ -1,6 +1,43 @@
 import React from 'react';
 import BookShelf from './BookShelf';
-
+const books = {
+    "reading" : [ 
+                    {
+                        "title":"To Kill a Mockingbird",
+                        "author": "Harper Lee",
+                        "image": {width: 128, height: 193, backgroundImage: "url('http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api')" }
+                    },
+                     {
+                        "title":"Ender's Game",
+                        "author": "Orson Scott Card",
+                        "image": {width: 128, height: 188, backgroundImage: "url('http://books.google.com/books/content?id=yDtCuFHXbAYC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72RRiTR6U5OUg3IY_LpHTL2NztVWAuZYNFE8dUuC0VlYabeyegLzpAnDPeWxE6RHi0C2ehrR9Gv20LH2dtjpbcUcs8YnH5VCCAH0Y2ICaKOTvrZTCObQbsfp4UbDqQyGISCZfGN&source=gbs_api')"}
+                    }
+               ],
+    "want" : [ 
+                    {
+                        "title":"",
+                        "author": "",
+                        "image": ""
+                    },
+                     {
+                        "title":"",
+                        "author": "",
+                        "image": ""
+                    }
+               ],
+    "read": [ 
+                    {
+                        "title":"",
+                        "author": "",
+                        "image": ""
+                    },
+                     {
+                        "title":"",
+                        "author": "",
+                        "image": ""
+                    }
+            ]
+}
 class ListBooks extends React.Component {
     state = {
 
@@ -14,7 +51,7 @@ class ListBooks extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf title="Currently reading..." />
+                <BookShelf title="Currently reading..." books={books["reading"]} />
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
