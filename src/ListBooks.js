@@ -1,6 +1,7 @@
 import React from 'react';
 import BookShelf from './BookShelf';
-import books from './bookdata.js'
+import books from './bookdata'
+import categories from './bookcategories'
 
 class ListBooks extends React.Component {
     state = {
@@ -9,15 +10,18 @@ class ListBooks extends React.Component {
 
     render () {
         return (
- <div className="list-books">
+          <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf title="Currently reading..." books={books["reading"]} />
-                <BookShelf title="Want to Read" books={books["want"]} />
-                <BookShelf title="Read" books={books["read"]} />
+                {
+                 categories.map((category) =>
+                   (
+                      <BookShelf title={category.name} books={books.filter((book) => (book.status===category.status))} />
+                   ))
+                } 
               </div>
             </div>
             <div className="open-search">
