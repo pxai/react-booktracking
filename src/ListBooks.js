@@ -9,10 +9,7 @@ class ListBooks extends React.Component {
 
     render () {
         return (
-
-
             <div className="list-books-content">
-
               <div>
                 {
                  this.props.categories.map((category) =>
@@ -26,7 +23,6 @@ class ListBooks extends React.Component {
                 } 
               </div>
             </div>
-
         )    
     }
 }

@@ -7,7 +7,6 @@ class BookShelfChanger extends React.Component {
 
     updateBook (book) {
         book.shelf = this.refs.shelf.value
-        console.log('in the changer: ' + book.title + ' change to:' + this.refs.shelf.value)
         this.props.onUpdateBook(book)
     }
 

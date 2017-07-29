@@ -18,26 +18,20 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      console.log(books);
       this.setState({ books })
     })
   }
 
   updateBook = (book) => {
-    this.setState((state) => ({
-      books: state.books.filter((c) => c.id !== book.id)
-    }))
-    this.setState(state => ({
-        books: state.books.concat([ book ])
-      }))
-      
-    //BooksAPI.update(book)  // Not working for me
+          BooksAPI.update(book, value).then(res => {
+            this.setState(state => ({
+              books: state.books.filter(b => b.id !== book.id).concat([ book ])
+            }))
+          })
   }
 
   searchBook = (term) => {
-    console.log('Searching for: '  + term)
      BooksAPI.search(term, 10).then((searchResult) => {
-      console.log(searchResult);
       var newResults;
       if (!this.state.searchedBooks) {
         newResults = searchResult.map(function(book){
@@ -49,7 +43,6 @@ class BooksApp extends React.Component {
           }
           return book;
         });
-        console.log(newResults);
       } else {
         newResults = searchResult
       }

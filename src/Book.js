@@ -9,8 +9,6 @@ class Book extends React.Component {
     render () {
         const onUpdateBook  = this.props.onUpdateBook
         const book =this.props.book
-        //<div className="book-cover" style={{ width:'150px', height:'200px', backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-
         return (
               <div className="book">
                           <div className="book-top">

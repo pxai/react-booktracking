@@ -8,20 +8,10 @@ class SearchBooks extends React.Component {
       books: []
     }
 
-  componentDidMount() {
-      console.log(this.state.books);
-  }
-
    searchBook = (e) => {
         const searchTerm = this.refs.term.value
-        if (searchTerm.length < 3 ) return;
-        console.log('in the changer: ' + searchTerm)
-    // const filteredBooks = this.props.onSearchBook(e.target.value)
-      this.props.onSearchBook(searchTerm)
-      /*this.setState(state => ({
-        books: this.props.onSearchBook(searchTerm)
-      }))*/
-      //console.log(filteredBooks)
+        if (searchTerm.length < 3 ) { return; }
+        this.props.onSearchBook(searchTerm)
     }
 
     render () {
@@ -46,7 +36,7 @@ class SearchBooks extends React.Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                 {undefined != this.props.books && this.props.books.length > 0 &&
+                 { undefined != this.props.books && this.props.books.length > 0 &&
   
                    this.props.books.map((book) =>
                    (
