@@ -15,22 +15,19 @@ class CreateBook extends Component {
     render () {
         return (
             <div>
-                <Link className="close-search" to="/">Close</Link>
+                 <Link className="close-search" to="/">Close</Link>
+            <div className="create-form">
                 <form onSubmit={this.handleSubmit} className="create-contact-form">
+                                   <div><h2>Create new Book</h2></div>
                         <div className="create-book-details">
-                                      <ImageInput
-            className='create-contact-avatar-input'
-            name='bookUrl'
-            maxHeight={64}
-          />
                             <div><label htmlFor="title">Title</label></div>
                             <div><input type="text" name="title" 
                                     placeholder="Book title here"/></div>
                             <div><label htmlFor="author">Author</label></div>
-                            <div><input type="text" name="author" 
-                                    placeholder="Author's name" /></div>
-                            <div><label htmlFor="status">Status</label></div>
-                            <div><select name="status">
+                            <div><input type="text" name="authors" 
+                                    placeholder="Authors' names comma separated" /></div>
+                            <div><label htmlFor="shelf">Status</label></div>
+                            <div><select name="shelf">
                                 <option value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -40,12 +37,13 @@ class CreateBook extends Component {
                             <div><label htmlFor="image">Image</label></div>
                             <div><ImageInput
                                     className='create-contact-avatar-input'
-                                    name='bookUrl'
+                                    name='imageLinks'
                                     maxHeight={64}
                                 /></div>
                             <button>Create</button>
                         </div>
                     </form>
+            </div>
             </div>
         )
     }

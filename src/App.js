@@ -11,13 +11,8 @@ import { Link } from 'react-router-dom';
 
 class BooksApp extends React.Component {
  state = {
-       /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
     books: [], //booksdata,
+    searchedBooks: [],
     categories: categories
   }
 
@@ -36,22 +31,45 @@ class BooksApp extends React.Component {
         books: state.books.concat([ book ])
       }))
       
-    BooksAPI.update(book)
+    //BooksAPI.update(book)  // Not working for me
   }
 
   searchBook = (term) => {
     console.log('Searching for: '  + term)
-    return BooksAPI.search(term, 10)
+     BooksAPI.search(term, 10).then((searchResult) => {
+      console.log(searchResult);
+      var newResults;
+      if (!this.state.searchedBooks) {
+        newResults = searchResult.map(function(book){
+          for (let i = 0; i < this.state.books.length; i++) {
+            if (this.state.books[i].id === book.id) {
+              book.shelf = this.state.books[i].shelf;
+              return book;
+            }
+          }
+          return book;
+        });
+        console.log(newResults);
+      } else {
+        newResults = searchResult
+      }
+      this.setState({ 
+        searchedBooks: newResults 
+      })
+    })
   }
 
-
     createBook(book) {
-      book.image = { width: 128, height: 192, backgroundImage: 'url("http://books.google.com/books/content?id=32haAAAAMAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72yckZ5f5bDFVIf7BGPbjA0KYYtlQ__nWB-hI_YZmZ-fScYwFy4O_fWOcPwf-pgv3pPQNJP_sT5J_xOUciD8WaKmevh1rUR-1jk7g1aCD_KeJaOpjVu0cm_11BBIUXdxbFkVMdi&source=gbs_api")' };
-    //BooksAPI.create(book).then(book => {
+      if (!book.imageLinks)
+        book.imageLinks = { thumbnail : 'http://books.google.com/books/content?id=32haAAAAMAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72yckZ5f5bDFVIf7BGPbjA0KYYtlQ__nWB-hI_YZmZ-fScYwFy4O_fWOcPwf-pgv3pPQNJP_sT5J_xOUciD8WaKmevh1rUR-1jk7g1aCD_KeJaOpjVu0cm_11BBIUXdxbFkVMdi&source=gbs_api'};
+      else
+        book.imageLinks = { thubnail: book.imageLinks }
+
+      book.authors = book.authors.split(',')
+
       this.setState(state => ({
         books: state.books.concat([ book ])
       }))
-    //})
   }
 
   render() {
@@ -63,24 +81,28 @@ class BooksApp extends React.Component {
             </div>
 
         <Route path="/" exact render={() => (
-            <ListBooks books={this.state.books} categories={categories} 
+            <ListBooks 
+              books={this.state.books} 
+              categories={categories} 
               onUpdateBook={(book) => this.updateBook(book)}
             />
         )}/>
         <Route path="/search" exact render={({history}) => (
             <SearchBooks 
+              books={this.state.searchedBooks}
+              onUpdateBook={(book) => this.updateBook(book)}
               onSearchBook={(book) => {
               this.searchBook(book)
             }}
             />
         )}/>
         <Route path='/create' render={({ history }) => (
-          <CreateBook
-            onCreateBook={(book) => {
-              this.createBook(book)
-              history.push('/')
-            }}
-          />
+            <CreateBook
+              onCreateBook={(book) => {
+                this.createBook(book)
+                history.push('/')
+              }}
+            />
         )}/>
             <div className="open-search">
               <Link to='/search' className='open-search'>Search</Link>

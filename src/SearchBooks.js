@@ -16,16 +16,16 @@ class SearchBooks extends React.Component {
         const searchTerm = this.refs.term.value
         if (searchTerm.length < 3 ) return;
         console.log('in the changer: ' + searchTerm)
-                console.log(this.props)
     // const filteredBooks = this.props.onSearchBook(e.target.value)
-      this.setState(state => ({
+      this.props.onSearchBook(searchTerm)
+      /*this.setState(state => ({
         books: this.props.onSearchBook(searchTerm)
-      }))
+      }))*/
       //console.log(filteredBooks)
     }
 
     render () {
-      const areBooksFound = this.state.books;
+      const areBooksFound = this.props.books;
       console.log(areBooksFound)
         return (
          <div className="search-books">
@@ -46,9 +46,9 @@ class SearchBooks extends React.Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                 {undefined != this.state.books && this.state.books.length > 0 &&
+                 {undefined != this.props.books && this.props.books.length > 0 &&
   
-                   this.state.books.map((book) =>
+                   this.props.books.map((book) =>
                    (
                       <li key={book.id}>
                             <Book  book={book} onUpdateBook={this.props.onUpdateBook} />

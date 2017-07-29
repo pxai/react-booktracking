@@ -20,7 +20,7 @@ class BookShelfChanger extends React.Component {
                                 <option value="currentlyReading" selected={book.shelf==="currentlyReading"}>Currently Reading</option>
                                 <option value="wantToRead" selected={book.shelf==="wantToRead"}>Want to Read</option>
                                 <option value="read" selected={book.shelf==="read"}>Read</option>
-                                <option value="none">None</option>
+                                <option value="none" >None</option>
                               </select>
                             </div>
         )
