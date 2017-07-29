@@ -12,11 +12,11 @@ class Book extends React.Component {
         return (
               <div className="book">
                           <div className="book-top">
-                            <img src={book.imageLinks.thumbnail} />
+                            <img src={book.imageLinks.thumbnail} alt={book.title} />
                             <BookShelfChanger book={book} onUpdateBook={onUpdateBook} />
                           </div>
                           <div className="book-title">{book.title}</div>
-                          { undefined != book.authors &&
+                          { undefined !== book.authors &&
                             <div className="book-authors">{book.authors.join(', ')}</div>
                           }
                         </div>

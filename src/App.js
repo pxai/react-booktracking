@@ -5,7 +5,6 @@ import './App.css'
 import ListBooks from './ListBooks'
 import SearchBooks from './SearchBooks'
 import CreateBook from './CreateBook'
-import booksdata from './bookdata'
 import categories from './bookcategories'
 import { Link } from 'react-router-dom';
 
@@ -23,7 +22,7 @@ class BooksApp extends React.Component {
   }
 
   updateBook = (book) => {
-          BooksAPI.update(book, value).then(res => {
+          BooksAPI.update(book, book.shelf).then(res => {
             this.setState(state => ({
               books: state.books.filter(b => b.id !== book.id).concat([ book ])
             }))

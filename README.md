@@ -37,6 +37,7 @@ _It will take a few seconds_
 
 This will open a web browser and you will be able to use the App directly on [http://localhost:3000](http://localhost:3000)
 ## Author
+Pello Xabier Altadill Izura
 - 🌐 [http://pello.io](http://pello.io "Personal site")
 - 🐦 [@pello_io](https://twitter.com/pello_io "My twitter.")
 

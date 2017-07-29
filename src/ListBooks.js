@@ -1,6 +1,5 @@
 import React from 'react';
 import BookShelf from './BookShelf';
-import categories from './bookcategories'
 
 class ListBooks extends React.Component {
     state = {
