@@ -1,18 +1,43 @@
 import React from 'react'
 import Book from './Book';
+import * as BooksAPI from './BooksAPI'
 import  { Link } from 'react-router-dom'; 
 
 
 class SearchBooks extends React.Component {
-  state = {
-      books: []
-    }
+    constructor(args) {
+        super(args);
+        this.state = {
+          searchedBooks: []
+        }
+     }
 
-   searchBook = (e) => {
-        this.props.onSearchBook(this.refs.term.value)
-    }
+
+    searchBook = (ev) => {
+      const term = ev.target.value;
+
+      BooksAPI.search(term, 10).then((searchResult) => {
+       let newResults = [];
+       let books = this.props.books;
+         newResults = searchResult.map(function(book){
+
+           for (let i = 0; i < books.length; i++) {       
+             if (books[i].id === book.id) {
+               book.shelf = books[i].shelf;
+               return book;
+             }
+           }
+           return book;
+         });
+
+       this.setState({ 
+         searchedBooks: newResults 
+       });
+     });
+   }
 
     render () {
+
         return (
          <div className="search-books">
             <div className="search-books-bar">
@@ -32,10 +57,7 @@ class SearchBooks extends React.Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                 { undefined !== this.props.books && this.props.books.length > 0 &&
-  
-                   this.props.books.map((book) =>
-                   (
+              {this.state.searchedBooks && this.state.searchedBooks.map(book => (
                       <li key={book.id}>
                             <Book  book={book} onUpdateBook={this.props.onUpdateBook} />
                       </li>

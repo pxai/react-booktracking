@@ -19,7 +19,7 @@ class BooksApp extends React.Component {
       }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books: books, loading: false })
     })
@@ -33,27 +33,7 @@ class BooksApp extends React.Component {
           })
   }
 
-  searchBook = (term) => {
-     BooksAPI.search(term, 10).then((searchResult) => {
-      var newResults;
-      if (!this.state.searchedBooks) {
-        newResults = searchResult.map(function(book){
-          for (let i = 0; i < this.state.books.length; i++) {
-            if (this.state.books[i].id === book.id) {
-              book.shelf = this.state.books[i].shelf;
-              return book;
-            }
-          }
-          return book;
-        });
-      } else {
-        newResults = searchResult
-      }
-      this.setState({ 
-        searchedBooks: newResults 
-      })
-    })
-  }
+
 
     createBook(book) {
       if (!book.imageLinks)
@@ -69,6 +49,8 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const books = this.state.books;
+
     return (
       <div className="app">
         <div className="list-books">
@@ -78,18 +60,15 @@ class BooksApp extends React.Component {
 
         <Route path="/" exact render={() => (
             <ListBooks 
-              books={this.state.books} 
+              books={books} 
               categories={categories} 
               onUpdateBook={(book) => this.updateBook(book)}
             />
         )}/>
         <Route path="/search" exact render={({history}) => (
             <SearchBooks 
-              books={this.state.searchedBooks}
+              books={books}
               onUpdateBook={(book) => this.updateBook(book)}
-              onSearchBook={(book) => {
-              this.searchBook(book)
-            }}
             />
         )}/>
         <Route path='/create' render={({ history }) => (

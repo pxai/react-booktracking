@@ -2,10 +2,6 @@ import React from 'react';
 import BookShelf from './BookShelf';
 
 class ListBooks extends React.Component {
-    state = {
-
-    }
-
     render () {
         return (
             <div className="list-books-content">
