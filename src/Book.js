@@ -12,7 +12,9 @@ class Book extends React.Component {
         return (
               <div className="book">
                           <div className="book-top">
+                          { undefined !== book.imageLinks &&
                             <img src={book.imageLinks.thumbnail} alt={book.title} />
+                          }
                             <BookShelfChanger book={book} onUpdateBook={onUpdateBook} />
                           </div>
                           <div className="book-title">{book.title}</div>

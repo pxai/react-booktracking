@@ -16,23 +16,32 @@ class SearchBooks extends React.Component {
     searchBook = (ev) => {
       const term = ev.target.value;
 
-      BooksAPI.search(term, 10).then((searchResult) => {
-       let newResults = [];
-       let books = this.props.books;
-         newResults = searchResult.map(function(book){
+      BooksAPI.search(term, 20).then((searchResult) => {
 
-           for (let i = 0; i < books.length; i++) {       
-             if (books[i].id === book.id) {
-               book.shelf = books[i].shelf;
-               return book;
-             }
-           }
-           return book;
-         });
+        if (undefined !== searchResult.error) {
+          console.log("Empty result: ", searchResult.error);
+          this.setState({searchedBooks: []});
+        } else {
+          let newResults = [];
+          let books = this.props.books;
+            newResults = searchResult.map(function(book){
 
-       this.setState({ 
-         searchedBooks: newResults 
-       });
+              for (let i = 0; i < books.length; i++) {       
+                if (books[i].id === book.id) {
+                  book.shelf = books[i].shelf;
+                  return book;
+                }
+              }
+              book.shelf = 'none';
+              return book;
+            });
+
+          this.setState({ 
+            searchedBooks: newResults 
+          });
+        }
+     }, error => {
+       console.log('Error ocurred calling API', error)
      });
    }
 
