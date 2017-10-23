@@ -9,15 +9,19 @@ import categories from './bookcategories'
 import { Link } from 'react-router-dom';
 
 class BooksApp extends React.Component {
- state = {
-    books: [], //booksdata,
-    searchedBooks: [],
-    categories: categories
+  constructor(args) {
+    super(args);
+    this.state = {
+        books: [], //booksdata,
+        searchedBooks: [],
+        categories: categories,
+        loading: true,
+      }
   }
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      this.setState({ books })
+      this.setState({ books: books, loading: false })
     })
   }
 
